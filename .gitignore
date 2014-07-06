@@ -1,0 +1,18 @@
+# The only thing we would like to track are sites directories, everything else
+# will be fetched by our makefile.
+
+web/*.php
+web/*.txt
+web/*.config
+web/.*
+web/profiles
+web/modules
+web/themes
+web/misc
+web/includes
+web/scripts
+web/sites/default/default.settings.php
+web/sites/all
+web/sites/example.sites.php
+web/sites/sites.php
+web/sites/README.txt

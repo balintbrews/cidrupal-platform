@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Script to build the whole Drupal installation.
+
+if [ -d web ]; then
+    # Save the `web` folder for now to let the build process use this directory
+    # name without overriding the old build. Later on we will copy the `sites`
+    # folder back (excluding `sites/all`) and remove this copy. 
+    mv web web-old
+fi
+
+# Execute `platform.make` which will clone Drupal core among with our
+# installation profile placing it into the appropriate folder (`profiles`).
+drush make --working-copy --no-gitinfofile platform.make web
+
+# Comment out the line above and remove the comment before the line below to
+# run Drush make in debug mode.
+# drush make --debug --working-copy --no-gitinfofile platform.make web
+
+
+if [ -d web-old ]; then
+    # Copy back the `sites` folder from the saved `web` folder to the newly
+    # built `web` directory, excluding `sites/all`.
+    rm -rf web-old/sites/all
+    mv web/sites/all web-old/sites/.
+    rm -rf web/sites
+    mv web-old/sites web/sites
+    rm -rf web-old
+fi
+
